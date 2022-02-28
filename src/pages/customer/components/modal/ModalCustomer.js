@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, Stack } from "@mui/material";
 import { Box } from "@mui/system";
 import { Button } from "@mui/material";
@@ -23,12 +23,13 @@ const style = {
 };
 
 export const ModalCustomer = ({
-  open,
-  handel = "",
-  change,
-  val = "",
+  val,
   rolid = 1,
-  saveCustomer = "",
+  data,
+  setData,
+  editCustomer,
+  setRol,
+  setValue = "",
 }) => {
   const [rols, setRols] = React.useState([]);
 
@@ -43,18 +44,39 @@ export const ModalCustomer = ({
   };
 
   const handleChange = (event) => {
-    change(event);
+    const { name, value } = event.target;
+    if (name === "rol") {
+      setData((d) => {
+        return { ...d, rol: { id: value } };
+      });
+      setRol(value);
+    } else {
+      setData((d) => {
+        return { ...d, [name]: value };
+      });
+    }
+    setValue(value);
+    console.log(data);
   };
 
   useEffect(() => {
     getRol();
+    console.log(val);
   }, []);
+
+  const saveCustomer = () => {
+    axios
+      .put("http://localhost:8080/v1/customer", data)
+      .then(console.log("Data already send"))
+      .catch(console.error);
+    editCustomer.handleClose();
+  };
 
   return (
     <Modal
       hideBackdrop
-      open={open}
-      onClose={handel}
+      open={editCustomer.open}
+      onClose={editCustomer.handleClose}
       aria-labelledby="child-modal-title"
       aria-describedby="child-modal-description"
     >
@@ -97,7 +119,7 @@ export const ModalCustomer = ({
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={rolid}
+                value={parseInt(rolid)}
                 label="Age"
                 onChange={handleChange}
                 name="rol"
@@ -122,7 +144,7 @@ export const ModalCustomer = ({
           </div>
         </Box>
         <Stack direction="row" spacing={2}>
-          <Button variant="outlined" onClick={handel}>
+          <Button variant="outlined" onClick={editCustomer.handleClose}>
             Close
           </Button>
           <Button variant="contained" color="secondary" onClick={saveCustomer}>

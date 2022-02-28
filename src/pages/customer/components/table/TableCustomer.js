@@ -9,50 +9,53 @@ import TableBody from "@mui/material/TableBody";
 import axios from "axios";
 import { Button } from "@mui/material";
 import { ModalCustomer } from "../modal/ModalCustomer";
+import { ModalAddCustomer } from "../modal/ModalAddCustomer";
+
+const useCustomer = () => {
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    if (open) {
+      setOpen(false);
+    } else {
+      setOpen(true);
+    }
+  };
+
+  return {
+    open,
+    handleClose,
+  };
+};
 
 export const TableCustomer = () => {
   const [customer, SetCustomer] = useState([]);
-  const [open, setOpen] = useState(false);
   const [value, setValue] = useState();
-  const [rol, setRol] = useState();
-  const [data, setData] = useState();
-
-  useEffect(() => {
-    // Actualiza el título del documento usando la API del navegador
-    getCustomer();
-  }, [customer]);
+  const [rol, setRol] = useState("");
+  const [data, setData] = useState("");
+  const editCustomer = useCustomer();
+  const addCustomer = useCustomer();
 
   const saveCustomer = () => {
     axios
       .put("http://localhost:8080/v1/customer", data)
-      .then((res) => console.log("Data already send"))
+      .then(console.log("Data already send"))
       .catch(console.error);
-    setOpen(false);
+    editCustomer.handleClose();
+    getCustomer();
   };
 
   const handleOpen = (customer) => {
+    console.log(value);
     setValue(customer);
-    console.log(customer);
+    console.log(value);
     setData(customer);
     setRol(customer.rol.id);
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
+    editCustomer.handleClose();
   };
 
-  const handleChange = (event) => {
-    event.preventDefault();
-    const { name, value } = event.target;
-    if (name === "rol") {
-      setData({ ...data, rol: { id: value } });
-      setRol(value);
-    } else {
-      setData((data) => {
-        return { ...data, [name]: value };
-      });
-    }
-    setValue(value);
+  const addCustomerModal = () => {
+    addCustomer.handleClose();
   };
 
   const getCustomer = () => {
@@ -64,8 +67,20 @@ export const TableCustomer = () => {
       .catch(console.error);
   };
 
+  useEffect(() => {
+    getCustomer();
+  }, [editCustomer.open, addCustomer.open]);
+
   return (
     <>
+      <Button
+        color="primary"
+        className="customer__button"
+        variant="contained"
+        onClick={addCustomerModal}
+      >
+        Add New Customer
+      </Button>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -104,15 +119,18 @@ export const TableCustomer = () => {
           </TableBody>
         </Table>
       </TableContainer>
+
       <ModalCustomer
-        open={open}
-        set={setOpen}
-        handel={handleClose}
-        change={handleChange}
-        val={value}
-        rolid={rol}
+        val={value ?? ""}
+        rolid={parseInt(rol)}
         saveCustomer={saveCustomer}
+        data={data}
+        setData={setData}
+        editCustomer={editCustomer}
+        setRol={setRol}
+        setValue={setValue}
       />
+      <ModalAddCustomer addCustomer={addCustomer} />
     </>
   );
 };
