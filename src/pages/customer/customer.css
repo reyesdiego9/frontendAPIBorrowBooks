@@ -1,0 +1,9 @@
+.customer {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+.customer__button {
+  margin-bottom: 15px !important;
+}
