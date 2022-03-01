@@ -1,0 +1,9 @@
+.author {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+.author__button {
+  margin-bottom: 15px !important;
+}

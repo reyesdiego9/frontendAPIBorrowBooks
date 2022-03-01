@@ -1,0 +1,9 @@
+.book {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+.book__button {
+  margin-bottom: 15px !important;
+}

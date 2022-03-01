@@ -7,6 +7,9 @@ import {
 } from "react-router-dom";
 import { Navbar } from "./components/navbar/Navbar";
 import { Customer } from "./pages/customer";
+import { Author } from "./pages/authors";
+import { Book } from "./pages/book";
+import {AuthorsByBook} from "./pages/authorsByBook"
 
 function App() {
   return (
@@ -14,7 +17,10 @@ function App() {
       <div className="App">
         <Navbar />
         <Routes>
+          <Route exact path="/books" element={<Book />}></Route>
+          <Route exact path="/author" element={<Author />}></Route>
           <Route exact path="/customer" element={<Customer />}></Route>
+          <Route exact path="/authorsByBook/:id" element = { <AuthorsByBook />}></Route>
         </Routes>
       </div>
     </Router>
