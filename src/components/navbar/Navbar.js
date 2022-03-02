@@ -25,6 +25,10 @@ const pages = [
     id: 3,
     page: "Customer",
   },
+  {
+    id: 4,
+    page: "Reservation",
+  }
 ];
 
 export const Navbar = () => {

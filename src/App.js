@@ -10,6 +10,8 @@ import { Customer } from "./pages/customer";
 import { Author } from "./pages/authors";
 import { Book } from "./pages/book";
 import {AuthorsByBook} from "./pages/authorsByBook"
+import { Reservation } from "./pages/reservation";
+
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
           <Route exact path="/author" element={<Author />}></Route>
           <Route exact path="/customer" element={<Customer />}></Route>
           <Route exact path="/authorsByBook/:id" element = { <AuthorsByBook />}></Route>
+          <Route exact path="/reservation" element = { <Reservation />}></Route>
         </Routes>
       </div>
     </Router>
