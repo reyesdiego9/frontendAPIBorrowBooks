@@ -137,6 +137,7 @@ export const TableReservation = () => {
                                     <Button
                                         color="success"
                                         onClick={() => handleOpen(reservation)}
+                                        disabled={reservation.status > 1}
                                     >
                                         Extension
                                     </Button>
@@ -144,6 +145,7 @@ export const TableReservation = () => {
                                         color="primary"
                                         value={reservation.id}
                                         onClick={addReturnToReservation}
+                                        disabled={reservation.status === 4}
                                     >
                                         Return
                                     </Button>
