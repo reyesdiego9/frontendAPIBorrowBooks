@@ -11,6 +11,7 @@ import TableBody from "@mui/material/TableBody";
 import axios from "axios";
 import { Button } from "@mui/material";
 import { ModalAddReservation } from "../modal/ModalAddReservation";
+import { ModalEditReservation } from "../modal/ModalEditReservation";
 
 const useReservation = () => {
     const [open, setOpen] = useState(false);
@@ -31,18 +32,48 @@ const useReservation = () => {
 
 export const TableReservation = () => {
     const [reservations, setReservations] = useState([]);
-    const [value, setValue] = useState();
-    const [data, setData] = useState("");
+    const [reservationId, setReservationId] = useState(0);
+    const [reservationDate, setReservationDate] = useState(new Date().toISOString().substring(0, 10));
     const addReservation = useReservation();
+    const editReservation = useReservation();
 
     const getReservations = () => {
-        axios
-            .get("http://localhost:8080/v1/reservation")
+        axios.get("http://localhost:8080/v1/reservation")
             .then((res) => {
                 setReservations(res.data);
             })
             .catch(console.error);
     };
+
+    const deleteReservation = (event) => {
+        axios.delete("http://localhost:8080/v1/reservation",
+            { data: { "id": event.target.value } })
+            .then(() => {
+                getReservations();
+            })
+            .catch((error) => {
+                if (error.response.status === 400) {
+                    alert(error.response.data.message);
+                } else {
+                    console.error(error);
+                }
+            });
+    }
+
+    const addReturnToReservation = (event) => {
+        axios.put("http://localhost:8080/v1/reservation/return",
+            { "id": event.target.value })
+            .then(() => {
+                getReservations();
+            })
+            .catch((error) => {
+                if (error.response.status === 400) {
+                    alert(error.response.data.message);
+                } else {
+                    console.error(error);
+                }
+            });
+    }
 
     const setDayStyle = (value) => {
         return value < 10 ? "0" + value : value;
@@ -51,9 +82,10 @@ export const TableReservation = () => {
     const status = ["On time", "First Extension", "Second Extension", "Delayed", "Returned"]
 
     const handleOpen = (reservation) => {
-        setValue(reservation);
-        setData(reservation);
-        addReservation.handleClose();
+        let resDate = reservation.estimatedDate?.map(x => setDayStyle(x)).join('-')
+        setReservationId(reservation.id);
+        setReservationDate(resDate);
+        editReservation.handleClose();
     };
 
     const addReservationModal = () => {
@@ -62,7 +94,7 @@ export const TableReservation = () => {
 
     useEffect(() => {
         getReservations();
-    }, [addReservation.open, addReservation.close]);
+    }, [addReservation.open, addReservation.close, editReservation.open, editReservation.close]);
 
     return (
         <>
@@ -85,6 +117,7 @@ export const TableReservation = () => {
                             <TableCell>Return Date</TableCell>
                             <TableCell>Penalty</TableCell>
                             <TableCell>Status</TableCell>
+                            <TableCell>Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -100,6 +133,28 @@ export const TableReservation = () => {
                                 <TableCell align="center">{reservation.returnDate?.map(x => setDayStyle(x)).join('-')}</TableCell>
                                 <TableCell align="center">$ {Number(reservation.penalty).toFixed(2)}</TableCell>
                                 <TableCell align="center">{status[reservation.status]}</TableCell>
+                                <TableCell>
+                                    <Button
+                                        color="success"
+                                        onClick={() => handleOpen(reservation)}
+                                    >
+                                        Extension
+                                    </Button>
+                                    <Button
+                                        color="primary"
+                                        value={reservation.id}
+                                        onClick={addReturnToReservation}
+                                    >
+                                        Return
+                                    </Button>
+                                    <Button
+                                        color="error"
+                                        value={reservation.id}
+                                        onClick={deleteReservation}
+                                    >
+                                        Delete
+                                    </Button>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -107,6 +162,11 @@ export const TableReservation = () => {
             </TableContainer>
 
             <ModalAddReservation addReservation={addReservation} />
+            <ModalEditReservation
+                reservationId={reservationId}
+                reservationDate={reservationDate}
+                editReservation={editReservation}
+            />
         </>
     );
 };

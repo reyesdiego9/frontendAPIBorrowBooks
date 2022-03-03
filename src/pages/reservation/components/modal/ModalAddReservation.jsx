@@ -57,14 +57,14 @@ export const ModalAddReservation = ({ addReservation }) => {
     };
 
     const handleBookChange = (event) => {
-        const { name, value } = event.target;
+        const { value } = event.target;
         setVal((reservationObject) => {
             return { ...reservationObject, book: { book_id: value } };
         });
     };
 
     const handleCustomerChange = (event) => {
-        const { name, value } = event.target;
+        const { value } = event.target;
         setVal((reservationObject) => {
             return { ...reservationObject, customer: { id: value } };
         });
