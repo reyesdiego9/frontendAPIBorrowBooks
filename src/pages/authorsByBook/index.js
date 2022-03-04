@@ -60,6 +60,8 @@ export function AuthorsByBook() {
     axios
       .get("http://localhost:8080/v1/book/" + id)
       .then((res) => {
+        getBook();
+        getAuthorsIn_out();
         setBook(res.data);
         console.log(res.data);
       })
@@ -78,7 +80,10 @@ export function AuthorsByBook() {
 
     axios
       .post("http://localhost:8080/v1/authorBook", send)
-      .then(console.log("Book success"))
+      .then( (res) => {
+        getBook();
+        getAuthorsIn_out();
+      })
       .catch(console.error);
 
     getAuthorsIn_out();
@@ -104,6 +109,7 @@ export function AuthorsByBook() {
         setAuthorsIn(res.data);
         console.log("In");
         console.log(res.data);
+
       })
       .catch(console.error);
 
@@ -113,6 +119,7 @@ export function AuthorsByBook() {
         console.log("Out");
         console.log(res.data);
         setAuthorsOut(res.data);
+
       })
       .catch(console.error);
   };
