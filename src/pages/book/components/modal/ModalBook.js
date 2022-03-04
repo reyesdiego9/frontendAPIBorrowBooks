@@ -61,6 +61,7 @@ export const ModalBook = ({
             value={val.name}
             onChange={handleChange}
             margin="normal"
+            active
           />
         </FormControl>
 
@@ -72,6 +73,7 @@ export const ModalBook = ({
           onChange={handleChange}
           name="category"
           margin="normal"
+          active
         />
 
         <TextField
@@ -82,6 +84,7 @@ export const ModalBook = ({
           onChange={handleChange}
           name="quantity"
           margin="normal"
+          active
         />
       </DialogContent>
       <DialogActions>
