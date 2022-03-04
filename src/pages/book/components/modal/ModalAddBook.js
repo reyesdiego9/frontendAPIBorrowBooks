@@ -44,7 +44,11 @@ export const ModalAddBook = ({ addBook }) => {
     console.log(val);
     axios
       .post("http://localhost:8080/v1/book", val)
-      .then(console.log("Book success"))
+      .then(setVal({
+        name: "",
+        category: "",
+        quantity: 0,
+      }))
       .catch(console.error);
     addBook.handleClose();
   };

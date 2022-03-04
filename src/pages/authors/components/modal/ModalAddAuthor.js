@@ -32,7 +32,11 @@ export const ModalAddAuthor = ({ addAuthor }) => {
     console.log(val);
     axios
       .post("http://localhost:8080/v1/author", val)
-      .then(console.log("Author success"))
+      .then(setVal({
+        name: "",
+        category: "",
+        quantity: 0,
+      }))
       .catch(console.error);
     addAuthor.handleClose();
   };
