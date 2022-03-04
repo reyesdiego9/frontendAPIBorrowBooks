@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Modal, Stack } from "@mui/material";
-import { Box } from "@mui/system";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Stack,
+  DialogActions,
+} from "@mui/material";
+import Slide from "@material-ui/core/Slide";
 import { Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
@@ -74,77 +80,66 @@ export const ModalCustomer = ({
   };
 
   return (
-    <Modal
-      hideBackdrop
-      className="modalCustomer"
+    <Dialog
       open={editCustomer.open}
       onClose={editCustomer.handleClose}
-      aria-labelledby="child-modal-title"
-      aria-describedby="child-modal-description"
+      TransitionComponent={Slide}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
     >
-      <Box sx={{ ...style, width: "25%", minWidth: 280 }}>
-        <h2 id="child-modal-title">Edit User</h2>
-        <Box
-          component="form"
-          sx={{
-            width: 500,
-            maxWidth: "100%",
-          }}
-          noValidate
-          autoComplete="off"
-        >
-          <div>
-            <FormControl fullWidth>
-              <TextField
-                id="outlined fullWidth"
-                label="username"
-                fullWidth
-                value={val.username}
-                onChange={handleChange}
-                name="username"
-                margin="normal"
-                focused
-              />
-              <TextField
-                id="outlined fullWidth"
-                label="name"
-                fullWidth
-                name="name"
-                value={val.name}
-                onChange={handleChange}
-                margin="normal"
-                focused
-              />
-            </FormControl>
-            <FormControl fullWidth margin="normal" focused>
-              <InputLabel id="demo-simple-select-label">Rol</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={parseInt(rolid)}
-                label="Age"
-                onChange={handleChange}
-                name="rol"
-              >
-                {rols.map((rol, index) => (
-                  <MenuItem key={index} value={rol.id}>
-                    {rol.rol}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <TextField
-              id="outlined fullWidth"
-              label="cellphone"
-              fullWidth
-              name="cellphone"
-              onChange={handleChange}
-              value={val.cellphone}
-              margin="normal"
-              focused
-            />
-          </div>
-        </Box>
+      <DialogTitle id="alert-dialog-title">{"Edit User"}</DialogTitle>
+      <DialogContent>
+        <FormControl fullWidth>
+          <TextField
+            id="outlined fullWidth"
+            label="username"
+            fullWidth
+            value={val.username}
+            onChange={handleChange}
+            name="username"
+            margin="normal"
+            focused
+          />
+          <TextField
+            id="outlined fullWidth"
+            label="name"
+            fullWidth
+            name="name"
+            value={val.name}
+            onChange={handleChange}
+            margin="normal"
+            focused
+          />
+        </FormControl>
+        <FormControl fullWidth margin="normal" focused>
+          <InputLabel id="demo-simple-select-label">Rol</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={parseInt(rolid)}
+            label="Age"
+            onChange={handleChange}
+            name="rol"
+          >
+            {rols.map((rol, index) => (
+              <MenuItem key={index} value={rol.id}>
+                {rol.rol}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <TextField
+          id="outlined fullWidth"
+          label="cellphone"
+          fullWidth
+          name="cellphone"
+          onChange={handleChange}
+          value={val.cellphone}
+          margin="normal"
+          focused
+        />
+      </DialogContent>
+      <DialogActions>
         <Stack direction="row" spacing={2}>
           <Button variant="outlined" onClick={editCustomer.handleClose}>
             Close
@@ -153,7 +148,7 @@ export const ModalCustomer = ({
             Save
           </Button>
         </Stack>
-      </Box>
-    </Modal>
+      </DialogActions>
+    </Dialog>
   );
 };

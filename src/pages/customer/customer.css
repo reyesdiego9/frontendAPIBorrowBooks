@@ -12,3 +12,8 @@
   animation: fadeInDownBig;
   animation-duration: 800ms;
 }
+
+.modalCustomeClose {
+  animation: backOutUp;
+  animation-duration: 800ms;
+}

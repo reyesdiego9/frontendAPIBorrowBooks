@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Modal, Stack } from "@mui/material";
-import { Box } from "@mui/system";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Stack,
+  DialogActions,
+} from "@mui/material";
+import Slide from "@material-ui/core/Slide";
 import { Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import axios from "axios";
 
@@ -48,59 +51,48 @@ export const ModalAddBook = ({ addBook }) => {
 
   return (
     <div>
-      <Modal
-        hideBackdrop
-        className="modalCustomer"
+      <Dialog
         open={addBook.open}
         onClose={addBook.handleClose}
-        aria-labelledby="child-modal-title"
-        aria-describedby="child-modal-description"
+        TransitionComponent={Slide}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
       >
-        <Box sx={{ ...style, width: "25%", minWidth: 280 }}>
-          <h2 id="child-modal-title">Add Book</h2>
-          <Box
-            component="form"
-            sx={{
-              width: 500,
-              maxWidth: "100%",
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            <div>
-              <FormControl fullWidth>
-                <TextField
-                  id="outlined fullWidth"
-                  label="name"
-                  fullWidth
-                  name="name"
-                  value={val.name}
-                  onChange={handleChange}
-                  margin="normal"
-                />
-              </FormControl>
+        <DialogTitle id="alert-dialog-title">{"Add Book"}</DialogTitle>
+        <DialogContent>
+          <FormControl fullWidth>
+            <TextField
+              id="outlined fullWidth"
+              label="name"
+              fullWidth
+              name="name"
+              value={val.name}
+              onChange={handleChange}
+              margin="normal"
+            />
+          </FormControl>
 
-              <TextField
-                id="outlined fullWidth"
-                label="Category"
-                fullWidth
-                value={val.category}
-                onChange={handleChange}
-                name="category"
-                margin="normal"
-              />
+          <TextField
+            id="outlined fullWidth"
+            label="Category"
+            fullWidth
+            value={val.category}
+            onChange={handleChange}
+            name="category"
+            margin="normal"
+          />
 
-              <TextField
-                id="outlined fullWidth"
-                label="quantity"
-                fullWidth
-                value={val.quantity}
-                onChange={handleChange}
-                name="quantity"
-                margin="normal"
-              />
-            </div>
-          </Box>
+          <TextField
+            id="outlined fullWidth"
+            label="quantity"
+            fullWidth
+            value={val.quantity}
+            onChange={handleChange}
+            name="quantity"
+            margin="normal"
+          />
+        </DialogContent>
+        <DialogActions>
           <Stack direction="row" spacing={2}>
             <Button variant="outlined" onClick={addBook.handleClose}>
               Close
@@ -109,8 +101,8 @@ export const ModalAddBook = ({ addBook }) => {
               Save
             </Button>
           </Stack>
-        </Box>
-      </Modal>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

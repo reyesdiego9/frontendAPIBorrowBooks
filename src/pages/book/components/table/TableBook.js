@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -12,34 +11,18 @@ import axios from "axios";
 import { Button } from "@mui/material";
 import { ModalBook } from "../modal/ModalBook";
 import { ModalAddBook } from "../modal/ModalAddBook";
+import { useActionModal } from "../../../../hooks/useActionModal";
 
-import {ModalAuthorsBook} from "../modal/ModalAuthorsBook";
-
-const useBook = () => {
-  const [open, setOpen] = useState(false);
-
-  const handleClose = () => {
-    if (open) {
-      setOpen(false);
-    } else {
-      setOpen(true);
-    }
-  };
-
-  return {
-    open,
-    handleClose,
-  };
-};
+import { ModalAuthorsBook } from "../modal/ModalAuthorsBook";
 
 export const TableBook = () => {
   const [Book, SetBook] = useState([]);
   const [value, setValue] = useState();
 
   const [data, setData] = useState("");
-  const editBook = useBook();
-  const addBook = useBook();
-  const authorBook = useBook();
+  const editBook = useActionModal();
+  const addBook = useActionModal();
+  const authorBook = useActionModal();
 
   const saveBook = () => {
     axios
@@ -51,12 +34,11 @@ export const TableBook = () => {
   };
 
   const handleAuthor = (Book) => {
-    // console.log(value); 
-    setValue(Book); 
-    setData(Book); 
-    authorBook.handleClose(); 
-  }; 
-
+    // console.log(value);
+    setValue(Book);
+    setData(Book);
+    authorBook.handleClose();
+  };
 
   const handleOpen = (Book) => {
     // console.log(value);
@@ -81,7 +63,13 @@ export const TableBook = () => {
 
   useEffect(() => {
     getBook();
-  }, [editBook.open, addBook.open, authorBook.open, editBook.close, addBook.close]);
+  }, [
+    editBook.open,
+    addBook.open,
+    authorBook.open,
+    editBook.close,
+    addBook.close,
+  ]);
 
   return (
     <>

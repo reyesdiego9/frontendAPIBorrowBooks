@@ -12,30 +12,15 @@ import axios from "axios";
 import { Button } from "@mui/material";
 import { ModalAddReservation } from "../modal/ModalAddReservation";
 import { ModalEditReservation } from "../modal/ModalEditReservation";
+import { useActionModal } from "../../../../hooks/useActionModal";
 
-const useReservation = () => {
-    const [open, setOpen] = useState(false);
-
-    const handleClose = () => {
-        if (open) {
-            setOpen(false);
-        } else {
-            setOpen(true);
-        }
-    };
-
-    return {
-        open,
-        handleClose,
-    };
-};
 
 export const TableReservation = () => {
     const [reservations, setReservations] = useState([]);
     const [reservationId, setReservationId] = useState(0);
     const [reservationDate, setReservationDate] = useState(new Date().toISOString().substring(0, 10));
-    const addReservation = useReservation();
-    const editReservation = useReservation();
+    const addReservation = useActionModal();
+    const editReservation = useActionModal();
 
     const getReservations = () => {
         axios.get("http://localhost:8080/v1/reservation")

@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Modal, Stack } from "@mui/material";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Stack,
+  DialogActions,
+} from "@mui/material";
+import Slide from "@material-ui/core/Slide";
 import { Box } from "@mui/system";
 import { Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import axios from "axios";
 
@@ -48,69 +52,59 @@ export const ModalAuthor = ({
   };
 
   return (
-    <Modal
-      className="modalCustomer"
-      hideBackdrop
+    <Dialog
       open={editAuthor.open}
       onClose={editAuthor.handleClose}
-      aria-labelledby="child-modal-title"
-      aria-describedby="child-modal-description"
+      TransitionComponent={Slide}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
     >
-      <Box sx={{ ...style, width: "25%", minWidth: 280 }}>
-        <h2 id="child-modal-title">Edit User</h2>
-        <Box
-          component="form"
-          sx={{
-            width: 500,
-            maxWidth: "100%",
-          }}
-          noValidate
-          autoComplete="off"
-        >
-          <div>
-            <FormControl fullWidth>
-              <TextField
-                id="outlined fullWidth"
-                label="name"
-                fullWidth
-                name="name"
-                value={val.name}
-                onChange={handleChange}
-                margin="normal"
-              />
-            </FormControl>
+      <DialogTitle id="alert-dialog-title">{"Edit User"}</DialogTitle>
 
-            <TextField
-              id="outlined fullWidth"
-              label="last name"
-              fullWidth
-              value={val.lastName}
-              onChange={handleChange}
-              name="lastName"
-              margin="normal"
-            />
+      <DialogContent>
+        <FormControl fullWidth>
+          <TextField
+            id="outlined fullWidth"
+            label="name"
+            fullWidth
+            name="name"
+            value={val.name}
+            onChange={handleChange}
+            margin="normal"
+          />
+        </FormControl>
 
-            <TextField
-              id="outlined fullWidth"
-              label="direction"
-              fullWidth
-              value={val.direction}
-              onChange={handleChange}
-              name="direction"
-              margin="normal"
-            />
+        <TextField
+          id="outlined fullWidth"
+          label="last name"
+          fullWidth
+          value={val.lastName}
+          onChange={handleChange}
+          name="lastName"
+          margin="normal"
+        />
 
-            <TextField
-              id="outlined fullWidth"
-              label="cellphone"
-              fullWidth
-              name="cellphone"
-              onChange={handleChange}
-              value={val.cellphone}
-              margin="normal"
-            />
-          </div>
-        </Box>
+        <TextField
+          id="outlined fullWidth"
+          label="direction"
+          fullWidth
+          value={val.direction}
+          onChange={handleChange}
+          name="direction"
+          margin="normal"
+        />
+
+        <TextField
+          id="outlined fullWidth"
+          label="cellphone"
+          fullWidth
+          name="cellphone"
+          onChange={handleChange}
+          value={val.cellphone}
+          margin="normal"
+        />
+      </DialogContent>
+      <DialogActions>
         <Stack direction="row" spacing={2}>
           <Button variant="outlined" onClick={editAuthor.handleClose}>
             Close
@@ -119,7 +113,7 @@ export const ModalAuthor = ({
             Save
           </Button>
         </Stack>
-      </Box>
-    </Modal>
+      </DialogActions>
+    </Dialog>
   );
 };

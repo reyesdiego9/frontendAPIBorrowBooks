@@ -10,32 +10,15 @@ import axios from "axios";
 import { Button } from "@mui/material";
 import { ModalCustomer } from "../modal/ModalCustomer";
 import { ModalAddCustomer } from "../modal/ModalAddCustomer";
-
-const useCustomer = () => {
-  const [open, setOpen] = useState(false);
-
-  const handleClose = () => {
-    if (open) {
-      setOpen(false);
-    } else {
-      setOpen(true);
-    }
-  };
-
-  return {
-    open,
-    handleClose,
-  };
-};
+import { useActionModal } from "../../../../hooks/useActionModal";
 
 export const TableCustomer = () => {
   const [customer, SetCustomer] = useState([]);
   const [value, setValue] = useState();
   const [rol, setRol] = useState("");
   const [data, setData] = useState("");
-  const [animation, setAnimation] = useState("");
-  const editCustomer = useCustomer();
-  const addCustomer = useCustomer();
+  const editCustomer = useActionModal();
+  const addCustomer = useActionModal();
 
   const saveCustomer = () => {
     axios
@@ -53,7 +36,6 @@ export const TableCustomer = () => {
     setData(customer);
     setRol(customer.rol.id);
     editCustomer.handleClose();
-    setAnimation("animate__animated animate__bounce");
   };
 
   const addCustomerModal = () => {
@@ -124,6 +106,7 @@ export const TableCustomer = () => {
 
       {editCustomer.open && (
         <ModalCustomer
+          className="modalCustomer"
           val={value ?? ""}
           rolid={parseInt(rol)}
           saveCustomer={saveCustomer}
@@ -135,7 +118,7 @@ export const TableCustomer = () => {
         />
       )}
 
-      {addCustomer.open && <ModalAddCustomer addCustomer={addCustomer} />}
+      <ModalAddCustomer addCustomer={addCustomer} />
     </>
   );
 };

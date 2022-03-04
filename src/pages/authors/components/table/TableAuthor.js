@@ -11,33 +11,16 @@ import { Button } from "@mui/material";
 import { ModalAuthor } from "../modal/ModalAuthor";
 import { ModalAddAuthor } from "../modal/ModalAddAuthor";
 import { ModalBooksAuthor } from "../modal/ModalBookAuthor";
-
-const useAuthor = () => {
-  const [open, setOpen] = useState(false);
-
-  const handleClose = () => {
-    if (open) {
-      setOpen(false);
-    } else {
-      setOpen(true);
-    }
-  };
-
-  return {
-    open,
-    handleClose,
-  };
-};
+import { useActionModal } from "../../../../hooks/useActionModal";
 
 export const TableAuthor = () => {
   const [Author, SetAuthor] = useState([]);
   const [value, setValue] = useState();
 
   const [data, setData] = useState("");
-  const editAuthor = useAuthor();
-  const addAuthor = useAuthor();
-  const authorBook = useAuthor();
-
+  const editAuthor = useActionModal();
+  const addAuthor = useActionModal();
+  const authorBook = useActionModal();
 
   const saveAuthor = () => {
     axios
@@ -49,11 +32,11 @@ export const TableAuthor = () => {
   };
 
   const handleAuthor = (Book) => {
-    // console.log(value); 
-    setValue(Book); 
-    setData(Book); 
-    authorBook.handleClose(); 
-  }; 
+    // console.log(value);
+    setValue(Book);
+    setData(Book);
+    authorBook.handleClose();
+  };
 
   const handleOpen = (Author) => {
     console.log(value);
@@ -78,7 +61,14 @@ export const TableAuthor = () => {
 
   useEffect(() => {
     getAuthor();
-  }, [editAuthor.open, addAuthor.open, editAuthor.close, addAuthor.close, authorBook.close, authorBook.open]);
+  }, [
+    editAuthor.open,
+    addAuthor.open,
+    editAuthor.close,
+    addAuthor.close,
+    authorBook.close,
+    authorBook.open,
+  ]);
 
   return (
     <>
@@ -94,10 +84,10 @@ export const TableAuthor = () => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Last name</TableCell>
-            <TableCell>Direction</TableCell>
-            <TableCell>Cellphone</TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell>Last name</TableCell>
+              <TableCell>Direction</TableCell>
+              <TableCell>Cellphone</TableCell>
               <TableCell align="center">See books</TableCell>
               <TableCell align="center">Edit</TableCell>
             </TableRow>
@@ -126,7 +116,6 @@ export const TableAuthor = () => {
                   </Button>
                 </TableCell>
 
-
                 <TableCell align="center">
                   <Button
                     color="secondary"
@@ -143,14 +132,14 @@ export const TableAuthor = () => {
         </Table>
       </TableContainer>
 
-            <ModalBooksAuthor
+      <ModalBooksAuthor
         val={value ?? ""}
         saveAuthor={saveAuthor}
         data={data}
         setData={setData}
         authorBook={authorBook}
-        setValue={setValue}             
-            />
+        setValue={setValue}
+      />
 
       <ModalAuthor
         val={value ?? ""}
