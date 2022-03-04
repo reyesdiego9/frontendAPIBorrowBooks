@@ -33,6 +33,7 @@ export const TableCustomer = () => {
   const [value, setValue] = useState();
   const [rol, setRol] = useState("");
   const [data, setData] = useState("");
+  const [animation, setAnimation] = useState("");
   const editCustomer = useCustomer();
   const addCustomer = useCustomer();
 
@@ -52,6 +53,7 @@ export const TableCustomer = () => {
     setData(customer);
     setRol(customer.rol.id);
     editCustomer.handleClose();
+    setAnimation("animate__animated animate__bounce");
   };
 
   const addCustomerModal = () => {
@@ -120,17 +122,20 @@ export const TableCustomer = () => {
         </Table>
       </TableContainer>
 
-      <ModalCustomer
-        val={value ?? ""}
-        rolid={parseInt(rol)}
-        saveCustomer={saveCustomer}
-        data={data}
-        setData={setData}
-        editCustomer={editCustomer}
-        setRol={setRol}
-        setValue={setValue}
-      />
-      <ModalAddCustomer addCustomer={addCustomer} />
+      {editCustomer.open && (
+        <ModalCustomer
+          val={value ?? ""}
+          rolid={parseInt(rol)}
+          saveCustomer={saveCustomer}
+          data={data}
+          setData={setData}
+          editCustomer={editCustomer}
+          setRol={setRol}
+          setValue={setValue}
+        />
+      )}
+
+      {addCustomer.open && <ModalAddCustomer addCustomer={addCustomer} />}
     </>
   );
 };

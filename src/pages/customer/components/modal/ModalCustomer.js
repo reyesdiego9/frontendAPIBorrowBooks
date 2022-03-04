@@ -30,6 +30,7 @@ export const ModalCustomer = ({
   editCustomer,
   setRol,
   setValue = "",
+  animated = "bounce",
 }) => {
   const [rols, setRols] = React.useState([]);
 
@@ -75,6 +76,7 @@ export const ModalCustomer = ({
   return (
     <Modal
       hideBackdrop
+      className="modalCustomer"
       open={editCustomer.open}
       onClose={editCustomer.handleClose}
       aria-labelledby="child-modal-title"

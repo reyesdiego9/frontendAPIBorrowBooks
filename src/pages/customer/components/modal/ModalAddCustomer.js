@@ -73,6 +73,7 @@ export const ModalAddCustomer = ({ addCustomer }) => {
     <div>
       <Modal
         hideBackdrop
+        className="modalCustomer"
         open={addCustomer.open}
         onClose={addCustomer.handleClose}
         aria-labelledby="child-modal-title"

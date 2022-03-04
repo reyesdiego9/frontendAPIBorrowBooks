@@ -7,3 +7,8 @@
 .customer__button {
   margin-bottom: 15px !important;
 }
+
+.modalCustomer {
+  animation: fadeInDown;
+  animation-duration: 800ms;
+}
