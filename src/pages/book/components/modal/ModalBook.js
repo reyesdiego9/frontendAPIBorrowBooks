@@ -33,7 +33,6 @@ export const ModalBook = ({
   editBook,
   setValue = "",
 }) => {
-
   const handleChange = (event) => {
     console.log(val);
     const { name, value } = event.target;
@@ -55,6 +54,7 @@ export const ModalBook = ({
   return (
     <Modal
       hideBackdrop
+      className="modalCustomer"
       open={editBook.open}
       onClose={editBook.handleClose}
       aria-labelledby="child-modal-title"
@@ -72,10 +72,7 @@ export const ModalBook = ({
           autoComplete="off"
         >
           <div>
-
-
             <FormControl fullWidth>
-
               <TextField
                 id="outlined fullWidth"
                 label="name"
@@ -106,11 +103,6 @@ export const ModalBook = ({
               name="quantity"
               margin="normal"
             />
-
-
-
-
-
           </div>
         </Box>
         <Stack direction="row" spacing={2}>

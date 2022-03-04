@@ -29,9 +29,8 @@ export const ModalAuthor = ({
   editAuthor,
   setValue = "",
 }) => {
-
   const handleChange = (event) => {
-    console.log(val); 
+    console.log(val);
     const { name, value } = event.target;
     setData((d) => {
       return { ...d, [name]: value };
@@ -50,6 +49,7 @@ export const ModalAuthor = ({
 
   return (
     <Modal
+      className="modalCustomer"
       hideBackdrop
       open={editAuthor.open}
       onClose={editAuthor.handleClose}
@@ -69,7 +69,6 @@ export const ModalAuthor = ({
         >
           <div>
             <FormControl fullWidth>
-
               <TextField
                 id="outlined fullWidth"
                 label="name"
@@ -110,7 +109,6 @@ export const ModalAuthor = ({
               value={val.cellphone}
               margin="normal"
             />
-
           </div>
         </Box>
         <Stack direction="row" spacing={2}>

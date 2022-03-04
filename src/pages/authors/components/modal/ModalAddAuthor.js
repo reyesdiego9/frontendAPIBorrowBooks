@@ -35,12 +35,11 @@ export const ModalAddAuthor = ({ addAuthor }) => {
     setVal((d) => {
       return { ...d, [name]: value };
     });
-
   };
 
   const saveAuthor = (data) => {
-    console.log(data); 
-    console.log(val); 
+    console.log(data);
+    console.log(val);
     axios
       .post("http://localhost:8080/v1/author", val)
       .then(console.log("Author success"))
@@ -48,10 +47,10 @@ export const ModalAddAuthor = ({ addAuthor }) => {
     addAuthor.handleClose();
   };
 
-
   return (
     <div>
       <Modal
+        className="modalCustomer"
         hideBackdrop
         open={addAuthor.open}
         onClose={addAuthor.handleClose}
@@ -71,7 +70,6 @@ export const ModalAddAuthor = ({ addAuthor }) => {
           >
             <div>
               <FormControl fullWidth>
-
                 <TextField
                   id="outlined fullWidth"
                   label="name"
@@ -118,11 +116,7 @@ export const ModalAddAuthor = ({ addAuthor }) => {
             <Button variant="outlined" onClick={addAuthor.handleClose}>
               Close
             </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={saveAuthor}
-            >
+            <Button variant="contained" color="secondary" onClick={saveAuthor}>
               Save
             </Button>
           </Stack>

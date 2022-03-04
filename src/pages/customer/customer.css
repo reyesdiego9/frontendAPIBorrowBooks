@@ -9,6 +9,6 @@
 }
 
 .modalCustomer {
-  animation: fadeInDown;
+  animation: fadeInDownBig;
   animation-duration: 800ms;
 }

@@ -34,12 +34,11 @@ export const ModalAddBook = ({ addBook }) => {
     setVal((d) => {
       return { ...d, [name]: value };
     });
-
   };
 
   const saveBook = (data) => {
-    console.log(data); 
-    console.log(val); 
+    console.log(data);
+    console.log(val);
     axios
       .post("http://localhost:8080/v1/book", val)
       .then(console.log("Book success"))
@@ -47,11 +46,11 @@ export const ModalAddBook = ({ addBook }) => {
     addBook.handleClose();
   };
 
-
   return (
     <div>
       <Modal
         hideBackdrop
+        className="modalCustomer"
         open={addBook.open}
         onClose={addBook.handleClose}
         aria-labelledby="child-modal-title"
@@ -70,7 +69,6 @@ export const ModalAddBook = ({ addBook }) => {
           >
             <div>
               <FormControl fullWidth>
-
                 <TextField
                   id="outlined fullWidth"
                   label="name"
@@ -107,11 +105,7 @@ export const ModalAddBook = ({ addBook }) => {
             <Button variant="outlined" onClick={addBook.handleClose}>
               Close
             </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={saveBook}
-            >
+            <Button variant="contained" color="secondary" onClick={saveBook}>
               Save
             </Button>
           </Stack>

@@ -100,6 +100,7 @@ export const ModalAddReservation = ({ addReservation }) => {
         <div>
             <Modal
                 hideBackdrop
+                className="modalCustomer"
                 open={addReservation.open}
                 onClose={addReservation.handleClose}
                 aria-labelledby="child-modal-title"
